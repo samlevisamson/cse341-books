@@ -201,8 +201,195 @@
           }
         }
       }
+    },
+    "/authors": {
+      "get": {
+        "summary": "Get all authors",
+        "tags": [
+          "Authors"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all authors"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new author",
+        "tags": [
+          "Authors"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "name",
+                  "birthYear"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "a5"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Mark Twain"
+                  },
+                  "birthYear": {
+                    "type": "integer",
+                    "example": 1835
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Author created"
+          },
+          "400": {
+            "description": "Invalid author data"
+          },
+          "409": {
+            "description": "Duplicate author ID"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/authors/{id}": {
+      "get": {
+        "summary": "Get an author by ID",
+        "tags": [
+          "Authors"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Author found"
+          },
+          "404": {
+            "description": "Author not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an author",
+        "tags": [
+          "Authors"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "birthYear"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Mark Twain"
+                  },
+                  "birthYear": {
+                    "type": "integer",
+                    "example": 1835
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Author updated"
+          },
+          "400": {
+            "description": "Invalid author data"
+          },
+          "404": {
+            "description": "Author not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an author",
+        "tags": [
+          "Authors"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Author deleted"
+          },
+          "404": {
+            "description": "Author not found"
+          },
+          "409": {
+            "description": "Author is referenced by existing books"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
     }
   },
   "components": {},
-  "tags": []
+  "tags": [
+    {
+      "name": "Books",
+      "description": "Books management API"
+    },
+    {
+      "name": "Authors",
+      "description": "Authors management API"
+    }
+  ]
 }
