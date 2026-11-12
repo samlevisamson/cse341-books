@@ -14,11 +14,11 @@ const connectToDb = async () => {
 
   // Ensure every book has a unique custom ID
     await database.collection('books').createIndexes([
-    {
-        key: { id: 1 },
-        unique: true,
-        name: 'unique_book_id'
-    }
+    { key: { id: 1 }, unique: true, name: 'unique_book_id' }
+    ]);
+
+    await database.collection('authors').createIndexes([
+        { key: { id: 1 }, unique: true, name: 'unique_author_id' }
     ]);
 
   return database;
